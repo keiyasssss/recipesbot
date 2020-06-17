@@ -21,8 +21,10 @@ Las tareas que se ejecutan periódicamente son las siguientes:
 
 Es necesaria la creación de un fichero **config.py** con los siguientes datos:
 
+```
 TELEGRAM_TOKEN = "AAAA"
 TELEGRAM_GROUP_ID = 12345
 WAIT_TIME_SECONDS_WEATHER = 3600
 AEMET_TOKEN = "BBBBB"
 CITY_ID = "03333"
+```
