@@ -5,10 +5,7 @@ import conf_management as ConfMgt
 
 
 def get_weather(token):
-    # Obtengo el día de la semana
-    now = datetime.datetime.now()
-    thisXMas = datetime.date(now.year, now.month, now.day)
-    thisXMasDay = thisXMas.weekday()
+    now = datetime.datetime.now()    
 
     return_text = ''
 
@@ -42,7 +39,14 @@ def get_weather(token):
 
     y = json.loads(response.content.decode('latin-1'))
 
-    prediction = y[0]['prediccion']['dia'][thisXMasDay]    
+    prediction = None
+
+    for day in y[0]['prediccion']['dia']:
+        date_consult = datetime.datetime.strptime(day['fecha'], '%Y-%m-%dT%H:%M:%S')
+
+        if date_consult.day == now.day:
+            prediction = day
+            break
 
     prob = prediction['probPrecipitacion'][0]['value']
 
