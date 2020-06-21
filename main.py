@@ -75,11 +75,8 @@ def check_weather():
 if __name__ == "__main__":
     main(ConfMgt.get_telegram_token())
 
-    schedule.every().day.at('08:00').do(check_weather)
-    schedule.every().day.at('12:00').do(check_weather)
-    schedule.every().day.at('15:00').do(check_weather)
-    schedule.every().day.at('18:00').do(check_weather)
-    schedule.every().day.at('00:00').do(check_weather)
+    for hour in ConfMgt.get_schedule():
+        schedule.every().day.at(hour).do(check_weather)
 
     while True:
         schedule.run_pending()
