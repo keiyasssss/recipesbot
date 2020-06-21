@@ -24,7 +24,24 @@ Es necesaria la creación de un fichero **config.py** con los siguientes datos:
 ```
 TELEGRAM_TOKEN = "AAAA"
 TELEGRAM_GROUP_ID = 12345
-WAIT_TIME_SECONDS_WEATHER = 3600
 AEMET_TOKEN = "BBBBB"
 CITY_ID = "03333"
+WEATHER_SCHEDULE = (
+    '08:00',
+    '12:00',
+    '15:00',
+    '18:00',
+    '22:00',
+    '00:00'
+)
 ```
+
+### Aclaración
+
+Descripción de cada parámetro de la configuración:
+
+- TELEGRAM_TOKEN --> Token del bot telegram
+- TELEGRAM_GROUP_ID --> Token del chat/grupo al que quieres mandar mensajes.
+- AEMET_TOKEN --> Token de la AEMET para consultar el tiempo
+- CITY_ID --> Id de la ciudad según el INE para consultar el tiempo
+- WEATHER_SCHEDULE --> Lista de horas en las que quieres que se te envíe el tiempo
