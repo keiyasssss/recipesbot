@@ -1,9 +1,9 @@
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
-import threading
 import aemet
-import datetime
 import conf_management as ConfMgt
+import schedule
+import time
 
 
 def start(bot, update):
@@ -75,9 +75,12 @@ def check_weather():
 if __name__ == "__main__":
     main(ConfMgt.get_telegram_token())
 
-    ticker = threading.Event()
-    while not ticker.wait(ConfMgt.get_weather_time()):
-        now = datetime.datetime.now()
+    schedule.every().day.at('08:00').do(check_weather)
+    schedule.every().day.at('12:00').do(check_weather)
+    schedule.every().day.at('15:00').do(check_weather)
+    schedule.every().day.at('18:00').do(check_weather)
+    schedule.every().day.at('00:00').do(check_weather)
 
-        if now.hour in (8, 12, 18, 0):
-            check_weather()
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
