@@ -78,4 +78,35 @@ CREATE DATABASE db_name WITH OWNER username;
 ```
 
 ### Scripts creación de tablas
-TODO
+
+Tabla **menu_recipe**:
+
+```
+create table if not exists menu_recipe
+(
+    id        serial                not null
+        constraint menu_recipe_pk
+            primary key,
+    is_lunch  boolean default false not null,
+    is_dinner boolean default false not null,
+    for_adult boolean default false not null,
+    for_kids  boolean default false not null,
+    name      text
+);
+```
+
+# Funcionamiento
+
+Describimos alguna de las funcionalidades del bot.
+
+## Recetas
+
+La idea de la parte de recetas es que sea capaz de:
+
+- Listar todas las recetas
+- Dar una receta aleatoria
+- Proponer un menú semanal para adultos y niños sin que se repitan las recetas
+
+Así es como está ahora mismo:
+
+![Alt Text](img/bot_telegram.gif)
