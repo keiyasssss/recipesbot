@@ -1,9 +1,11 @@
 from telegram.ext import Updater
-from telegram.ext import CommandHandler
+from telegram.ext import CommandHandler, CallbackQueryHandler
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 import aemet
 import conf_management as ConfMgt
 import schedule
 import time
+import menu_recipe
 
 
 def start(bot, update):
@@ -34,22 +36,65 @@ def weather(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text=result_text)
 
 
+def recipe(bot, update):
+    reply_markup = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton('Ver recetas', callback_data='show_recipes')],
+                [InlineKeyboardButton('Receta aleatoria', callback_data='random_recipe')],
+                [InlineKeyboardButton('Cancelar', callback_data='cancel')]
+            ]
+        )
+
+    bot.send_message(
+        chat_id=update.message.chat_id,
+        text='¿Qué quieres hacer?',
+        reply_markup=reply_markup
+        )
+
+
+def button(bot, update):
+    bot.deleteMessage(
+        chat_id=update.callback_query.message.chat_id,
+        message_id=update.callback_query.message.message_id
+        )
+
+    txt_result = ''
+
+    if update.callback_query.data == 'show_recipes':
+        txt_result = menu_recipe.Recipe.get_text_recipes()
+    elif update.callback_query.data == 'cancel':
+        txt_result = 'OK'
+    elif update.callback_query.data == 'random_recipe':
+        txt_result = menu_recipe.Recipe.get_random_recipe()
+
+    bot.send_message(
+        chat_id=update.callback_query.message.chat_id,
+        text=txt_result
+        )
+
+
 def main(bot_token):
     """ Main function of the bot """
     updater = Updater(token=bot_token)
     dispatcher = updater.dispatcher
+
+    # Query handler
+    query_handler = CallbackQueryHandler(button)
+    dispatcher.add_handler(query_handler)
 
     # Command handlers
     start_handler = CommandHandler('start', start)
     hello_handler = CommandHandler('hello', hello)
     add_handler = CommandHandler('add', add, pass_args=True)
     weather_handler = CommandHandler('weather', weather)
+    recipe_handler = CommandHandler('recipe', recipe)
 
     # Add the handlers to the bot
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(hello_handler)
     dispatcher.add_handler(add_handler)    
     dispatcher.add_handler(weather_handler)
+    dispatcher.add_handler(recipe_handler)
 
     # Starting the bot
     updater.start_polling()

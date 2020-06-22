@@ -1,4 +1,5 @@
 import config as cfg
+import psycopg2
 
 
 def get_telegram_token():
@@ -19,3 +20,10 @@ def get_city_id():
 
 def get_schedule():
     return cfg.WEATHER_SCHEDULE
+
+
+def get_connection_by_config():
+    db = cfg.postgresql
+    conn = psycopg2.connect(**db)
+
+    return conn
