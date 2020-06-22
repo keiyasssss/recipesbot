@@ -37,10 +37,23 @@ def weather(bot, update):
 
 
 def recipe(bot, update):
+    """
     reply_markup = InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton('Ver recetas', callback_data='show_recipes')],
                 [InlineKeyboardButton('Receta aleatoria', callback_data='random_recipe')],
+                [InlineKeyboardButton('Cancelar', callback_data='cancel')]
+            ]
+        )
+    """
+    reply_markup = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton('Ver recetas', callback_data='show_recipes'),
+                    InlineKeyboardButton('Receta aleatoria', callback_data='random_recipe')],
+                [InlineKeyboardButton('Adulto comida aleatoria', callback_data='adult_random_lunch'),
+                    InlineKeyboardButton('Adulto cena aleatoria', callback_data='adult_random_dinner')],
+                [InlineKeyboardButton('Niña comida aleatoria', callback_data='kid_random_lunch'),
+                    InlineKeyboardButton('Niña cena aleatoria', callback_data='kid_random_dinner')],
                 [InlineKeyboardButton('Cancelar', callback_data='cancel')]
             ]
         )
@@ -66,6 +79,14 @@ def button(bot, update):
         txt_result = 'OK'
     elif update.callback_query.data == 'random_recipe':
         txt_result = menu_recipe.Recipe.get_random_recipe()
+    elif update.callback_query.data == 'adult_random_lunch':
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_lunch=True,for_adult=True)
+    elif update.callback_query.data == 'adult_random_dinner':
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_dinner=True,for_adult=True)
+    elif update.callback_query.data == 'kid_random_lunch':
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_lunch=True,for_kids=True)
+    elif update.callback_query.data == 'kid_random_dinner':
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_dinner=True,for_kids=True)
 
     bot.send_message(
         chat_id=update.callback_query.message.chat_id,
