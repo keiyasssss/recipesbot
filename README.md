@@ -19,29 +19,19 @@ Las tareas que se ejecutan periódicamente son las siguientes:
 
 ## Configuración
 
+Es necesario la creación de un fichero **docker-compose.override.yml** con los siguientes datos:
+
 Es necesaria la creación de un fichero **config.py** con los siguientes datos:
 
 ```
-TELEGRAM_TOKEN = "AAAA"
-TELEGRAM_GROUP_ID = 12345
-AEMET_TOKEN = "BBBBB"
-CITY_ID = "03333"
-WEATHER_SCHEDULE = (
-    '08:00',
-    '12:00',
-    '15:00',
-    '18:00',
-    '22:00',
-    '00:00'
-)
-
-postgresql = {
-    "host": "localhost",
-    "user": "username",
-    "password": "your_pass",
-    "database": "your_database_name",
-    "port": "5432"
-}
+version: '3'
+services:
+  recipesbot:
+    environment: 
+        - TELEGRAM_TOKEN=AAAA
+        - TELEGRAM_GROUP_ID=1111
+        - AEMET_TOKEN=
+        - CITY_ID=
 ```
 
 ### Aclaración

@@ -119,6 +119,7 @@ def main(bot_token):
 
     # Starting the bot
     updater.start_polling()
+    print('recipesbot configured')
 
 
 def envia_telegram(bot_token, id_chat, texto_enviar):
@@ -133,7 +134,7 @@ def check_weather():
     ok, result_text = aemet.get_weather(ConfMgt.get_aemet_token())
 
     if not ok:
-        envia_telegram(ConfMgt.get_telegram_token(), ConfMgt.get_telegram_group_id(), 'Error al conectar con AEMET')
+        envia_telegram(ConfMgt.get_telegram_token(), ConfMgt.get_telegram_group_id(), 'Error al conectar con Telegram')
     else:
         envia_telegram(ConfMgt.get_telegram_token(), ConfMgt.get_telegram_group_id(), result_text)
 
@@ -147,3 +148,4 @@ if __name__ == "__main__":
     while True:
         schedule.run_pending()
         time.sleep(1)
+        print('recipesbot is running...')
