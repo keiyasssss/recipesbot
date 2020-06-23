@@ -1,0 +1,32 @@
+version: '3'
+services:
+  postgres:
+    restart: unless-stopped
+    image: "postgres"
+    environment: 
+      - POSTGRES_USER=recipesbot
+      - POSTGRES_PASSWORD=recipesbot
+      - POSTGRES_DB=recipesbot
+    ports:
+      - 5432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+      - ./docker/postgres:/docker-entrypoint-initdb.d/
+  recipesbot:
+    restart: unless-stopped
+    depends_on: 
+      - postgres
+    build: 
+        context: .
+    image: recipesbot
+    environment: 
+        - TELEGRAM_TOKEN=AAAA
+        - TELEGRAM_GROUP_ID=1111
+        - POSTGRES_HOST=postgres
+        - POSTGRES_USER=recipesbot
+        - POSTGRES_PASSWORD=recipesbot
+        - POSTGRES_DATABASE=recipesbot
+        - WEATHER_SCHEDULE=08:00,12:00,15:00,18:00,22:00,00:00
+volumes:
+  database-data:
+    external: false
