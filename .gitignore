@@ -48,3 +48,4 @@ nodeLanguageServer.*/**
 .venv
 *config.py
 .idea/workspace.xml
+docker-compose.override.yml
