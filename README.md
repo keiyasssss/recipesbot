@@ -6,10 +6,11 @@ Este es un proyecto python con el código para interactuar con un bot de telegra
 
 Los comandos disponibles de momento son:
 
-- add: Suma números separados por espacio
-- start: Da un mensaje de bienvenida
-- hello: Saluda al usuario por su nombre
-- weather: Se conecta a AEMET y descarga la previsión meteorológica
+* recipe - Gestión de recetas y menús semanales
+* add - Suma números separados por espacio
+* start - Da un mensaje de bienvenida
+* hello - Saluda al usuario por su nombre
+* weather - Se conecta a AEMET y descarga la previsión meteorológica
 
 ## Tareas periódicas
 
@@ -20,8 +21,6 @@ Las tareas que se ejecutan periódicamente son las siguientes:
 ## Configuración
 
 Es necesario la creación de un fichero **docker-compose.override.yml** con los siguientes datos:
-
-Es necesaria la creación de un fichero **config.py** con los siguientes datos:
 
 ```
 version: '3'
@@ -36,36 +35,24 @@ services:
 
 ### Aclaración
 
-Descripción de cada parámetro de la configuración:
+Descripción de parámetros de configuración que se sobreescribirá en el fichero **docker-compose.override.yml**:
 
 - TELEGRAM_TOKEN --> Token del bot telegram
 - TELEGRAM_GROUP_ID --> Token del chat/grupo al que quieres mandar mensajes.
 - AEMET_TOKEN --> Token de la AEMET para consultar el tiempo
 - CITY_ID --> Id de la ciudad según el INE para consultar el tiempo
-- WEATHER_SCHEDULE --> Lista de horas en las que quieres que se te envíe el tiempo
-- postgresql --> Conexión a la base de datos PostgreSQL
+
+Descripción de parámetros de configuración del fichero  **docker-compose.yml**:
+
+- POSTGRES_HOST --> Servidor de base de datos (host)
+- POSTGRES_USER --> Usuario de la base de datos
+- POSTGRES_PASSWORD --> Password de la base de datos
+- POSTGRES_DATABASE --> Nombre de la base de datos
+- WEATHER_SCHEDULE --> Horas separadas por ',' a las que queremos que se nos mande la previsión
 
 ## Servidor PosrgreSQL con Docker
 
-En este repositorio enseño cómo montar un servidor Postgre dockerizado.
-
-[Enlace repositorio](https://github.com/Dynam1co/Docker_container_postgresql_12)
-
-### Creación de usuario Postgre
-
-Para crear un usuario en postgre:
-
-```
-CREATE USER username WITH SUPERUSER PASSWORD 'my_perfect_pass';
-```
-
-### Creación de la base de datos
-
-Para crear la base de datos:
-
-```
-CREATE DATABASE db_name WITH OWNER username;
-```
+El servidor Postgre también está dockerizado
 
 ### Scripts creación de tablas
 
@@ -84,6 +71,28 @@ create table if not exists menu_recipe
     name      text
 );
 ```
+
+# ¿Cómo montar el entorno?
+
+Ir a la raíz del proyecto, una vez creado el **docker-compose.override.yml** y ejecutar el comando:
+
+```
+$ docker-compose build
+```
+
+Una vez termine dejamos el entorno en ejecución:
+
+```
+$ docker-compose up
+```
+
+Para resetear el entorno:
+
+```
+$ docker-compose down -v
+```
+
+A la base de datos podremos conectarnos usando los datos configurados, el host será **0.0.0.0**
 
 # Funcionamiento
 
