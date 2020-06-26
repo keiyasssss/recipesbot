@@ -1,22 +1,13 @@
 # Bot Telegram
 
-Este es un proyecto python con el código para interactuar con un bot de telegram
+Este es un proyecto python con el código para interactuar con un bot de recetas de telegram.
 
 ## Comandos disponibles
 
 Los comandos disponibles de momento son:
 
 * recipe - Gestión de recetas y menús semanales
-* add - Suma números separados por espacio
 * start - Da un mensaje de bienvenida
-* hello - Saluda al usuario por su nombre
-* weather - Se conecta a AEMET y descarga la previsión meteorológica
-
-## Tareas periódicas
-
-Las tareas que se ejecutan periódicamente son las siguientes:
-
-- weather
 
 ## Configuración
 
@@ -25,8 +16,6 @@ Es necesaria la creación de un fichero **.env** con los siguientes datos:
 ```
 TELEGRAM_TOKEN=YOUR_TELEGRAM_TOKEN
 TELEGRAM_GROUP_ID=YOUR_TELEGRAM_GROUP_ID
-AEMET_TOKEN=YOUR_AEMET_TOKEN
-CITY_ID=YOUR_CITY_ID
 ```
 
 ### Aclaración
@@ -35,8 +24,6 @@ Descripción de parámetros de configuración que se sobreescribirá en el fiche
 
 - TELEGRAM_TOKEN --> Token del bot telegram
 - TELEGRAM_GROUP_ID --> Token del chat/grupo al que quieres mandar mensajes.
-- AEMET_TOKEN --> Token de la AEMET para consultar el tiempo
-- CITY_ID --> Id de la ciudad según el INE para consultar el tiempo
 
 Los siguientes parámetros son opcionales, si no son especificados se utilizarán los valores por defecto especificados en el dichero  **docker-compose.yml**:
 
@@ -44,7 +31,6 @@ Los siguientes parámetros son opcionales, si no son especificados se utilizará
 - POSTGRES_USER --> Usuario de la base de datos
 - POSTGRES_PASSWORD --> Password de la base de datos
 - POSTGRES_DATABASE --> Nombre de la base de datos
-- WEATHER_SCHEDULE --> Horas separadas por ',' a las que queremos que se nos mande la previsión
 
 ## Servidor PosrgreSQL con Docker
 
