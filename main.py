@@ -1,9 +1,9 @@
+import time
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, CallbackQueryHandler
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-import conf_management as ConfMgt
 import schedule
-import time
+import conf_management as ConfMgt
 import menu_recipe
 
 
@@ -22,16 +22,16 @@ def recipe(bot, update):
         )
     """
     reply_markup = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton('Ver recetas', callback_data='show_recipes'),
-                    InlineKeyboardButton('Receta aleatoria', callback_data='random_recipe')],
-                [InlineKeyboardButton('Adulto comida aleatoria', callback_data='adult_random_lunch'),
-                    InlineKeyboardButton('Adulto cena aleatoria', callback_data='adult_random_dinner')],
-                [InlineKeyboardButton('Niña comida aleatoria', callback_data='kid_random_lunch'),
-                    InlineKeyboardButton('Niña cena aleatoria', callback_data='kid_random_dinner')],
-                [InlineKeyboardButton('Cancelar', callback_data='cancel')]
-            ]
-        )
+        [
+            [InlineKeyboardButton('Ver recetas', callback_data='show_recipes'),
+             InlineKeyboardButton('Receta aleatoria', callback_data='random_recipe')],
+            [InlineKeyboardButton('Adulto comida aleatoria', callback_data='adult_random_lunch'),
+             InlineKeyboardButton('Adulto cena aleatoria', callback_data='adult_random_dinner')],
+            [InlineKeyboardButton('Niña comida aleatoria', callback_data='kid_random_lunch'),
+             InlineKeyboardButton('Niña cena aleatoria', callback_data='kid_random_dinner')],
+            [InlineKeyboardButton('Cancelar', callback_data='cancel')]
+        ]
+    )
 
     bot.send_message(
         chat_id=update.message.chat_id,
@@ -55,13 +55,13 @@ def button(bot, update):
     elif update.callback_query.data == 'random_recipe':
         txt_result = menu_recipe.Recipe.get_random_recipe()
     elif update.callback_query.data == 'adult_random_lunch':
-        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_lunch=True,for_adult=True)
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_lunch=True, for_adult=True)
     elif update.callback_query.data == 'adult_random_dinner':
-        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_dinner=True,for_adult=True)
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_dinner=True, for_adult=True)
     elif update.callback_query.data == 'kid_random_lunch':
-        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_lunch=True,for_kids=True)
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_lunch=True, for_kids=True)
     elif update.callback_query.data == 'kid_random_dinner':
-        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_dinner=True,for_kids=True)
+        txt_result = menu_recipe.Recipe.get_random_recipe_filtered(is_dinner=True, for_kids=True)
 
     bot.send_message(
         chat_id=update.callback_query.message.chat_id,

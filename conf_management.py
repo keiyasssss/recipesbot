@@ -1,13 +1,12 @@
-import psycopg2
 import os
-import sys
+import psycopg2
 
 def get_telegram_token():
     return os.getenv('TELEGRAM_TOKEN')
 
 
 def get_telegram_group_id():
-    print ('TELEGRAM_GROUP_ID=' + os.getenv('TELEGRAM_GROUP_ID'))
+    print('TELEGRAM_GROUP_ID=' + os.getenv('TELEGRAM_GROUP_ID'))
     return os.getenv('TELEGRAM_GROUP_ID')
 
 

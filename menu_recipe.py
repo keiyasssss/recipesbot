@@ -1,6 +1,6 @@
-import conf_management as ConfMgt
-import psycopg2
 from random import randrange
+import psycopg2
+import conf_management as ConfMgt
 
 
 class Recipe:
@@ -53,7 +53,7 @@ class Recipe:
             print("Error while connecting to PostgreSQL", error)
         finally:
             # closing database connection.
-            if(connection):
+            if connection:
                 cursor.close()
                 connection.close()
 
@@ -80,7 +80,10 @@ class Recipe:
 
         return recipe_name
 
-    def get_random_recipe_filtered(is_lunch=False, is_dinner=False, for_adult=False, for_kids=False):
+    def get_random_recipe_filtered(is_lunch=False,
+                                   is_dinner=False,
+                                   for_adult=False,
+                                   for_kids=False):
         recipe_name = ''
         where_statement = " WHERE name <> ''"
 
