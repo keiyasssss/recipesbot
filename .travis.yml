@@ -4,6 +4,13 @@ python:
   - "3.6"      # current default Python on Travis CI
   - "3.7"
   - "3.8"
+
+addons:
+  sonarcloud:
+    organization: "sonarcloud_organization_key" # the key of the org you chose at step #3
+    token:
+      secure: "*********" # encrypted value of your token
+
 # command to install dependencies
 install:
   - pip install -r requirements.txt
@@ -13,4 +20,5 @@ script:
 # We temporary disable linting because the code has too much errors
 # We will enable it again when we fixes all issues
 #  - pylint *.py
+  - sonar-scanner
 
