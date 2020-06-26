@@ -10,7 +10,5 @@ install:
 # command to run tests
 script:
   - pip install pylint --quiet
-# We temporary disable linting because the code has too much errors
-# We will enable it again when we fixes all issues
-#  - pylint *.py
+  - pylint *.py
 
