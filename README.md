@@ -20,29 +20,25 @@ Las tareas que se ejecutan periódicamente son las siguientes:
 
 ## Configuración
 
-Es necesario la creación de un fichero **docker-compose.override.yml** con los siguientes datos:
+Es necesaria la creación de un fichero **.env** con los siguientes datos:
 
 ```
-version: '3'
-services:
-  recipesbot:
-    environment: 
-        - TELEGRAM_TOKEN=AAAA
-        - TELEGRAM_GROUP_ID=1111
-        - AEMET_TOKEN=
-        - CITY_ID=
+TELEGRAM_TOKEN=YOUR_TELEGRAM_TOKEN
+TELEGRAM_GROUP_ID=YOUR_TELEGRAM_GROUP_ID
+AEMET_TOKEN=YOUR_AEMET_TOKEN
+CITY_ID=YOUR_CITY_ID
 ```
 
 ### Aclaración
 
-Descripción de parámetros de configuración que se sobreescribirá en el fichero **docker-compose.override.yml**:
+Descripción de parámetros de configuración que se sobreescribirá en el fichero **.env**:
 
 - TELEGRAM_TOKEN --> Token del bot telegram
 - TELEGRAM_GROUP_ID --> Token del chat/grupo al que quieres mandar mensajes.
 - AEMET_TOKEN --> Token de la AEMET para consultar el tiempo
 - CITY_ID --> Id de la ciudad según el INE para consultar el tiempo
 
-Descripción de parámetros de configuración del fichero  **docker-compose.yml**:
+Los siguientes parámetros son opcionales, si no son especificados se utilizarán los valores por defecto especificados en el dichero  **docker-compose.yml**:
 
 - POSTGRES_HOST --> Servidor de base de datos (host)
 - POSTGRES_USER --> Usuario de la base de datos
@@ -74,13 +70,8 @@ create table if not exists menu_recipe
 
 # ¿Cómo montar el entorno?
 
-Ir a la raíz del proyecto, una vez creado el **docker-compose.override.yml** y ejecutar el comando:
+Ir a la raíz del proyecto, una vez creado el **.env** y ejecutar el comando:
 
-```
-$ docker-compose build
-```
-
-Una vez termine dejamos el entorno en ejecución:
 
 ```
 $ docker-compose up
@@ -92,7 +83,15 @@ Para resetear el entorno:
 $ docker-compose down -v
 ```
 
-A la base de datos podremos conectarnos usando los datos configurados, el host será **0.0.0.0**
+A la base de datos podremos conectarnos usando el pgadmin abriendo en nuestro navegador la url localhost:6001, los datos  por defecto son:
+EMAIL:postgres@postgres.com
+PASSWORD:postgres
+
+Una vez conectados al pgadmin, los datos para conectarnos con la BD son:
+HOST: postgresql
+USER: recipesbot
+PASSWORD: recipesbot
+PORT:5432
 
 # Funcionamiento
 
