@@ -2,6 +2,10 @@
 
 Este es un proyecto python con el código para interactuar con un bot de telegram
 
+## Estado de la Integración Continua
+
+[![Build Status](https://travis-ci.com/keiyasssss/Python_Telegram_Bot.svg?branch=master)](https://travis-ci.com/keiyasssss/Python_Telegram_Bot)
+
 ## Comandos disponibles
 
 Los comandos disponibles de momento son:
